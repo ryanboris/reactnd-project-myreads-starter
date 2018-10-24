@@ -1,36 +1,55 @@
-import React from "react";
-import { api } from "./BooksAPI";
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
+import * as BooksAPI from "./BooksAPI";
+import BookList from "./Components/BookList";
+import BookSearch from "./Components/BookSearch";
 import "./App.css";
-import SearchBooksBar from "./components/SearchBooks/SearchBooksBar";
-import Bookshelf from "./components/BookShelf";
-import axios from "axios";
 
-class BooksApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      books: [],
-      showSearchPage: false
-    };
-  }
+export default class BooksApp extends Component {
+  state = {
+    Books: []
+  };
 
   componentDidMount() {
-    axios
-      .get(`${api}/books`)
-      .then(res => {
-        this.setState({ books: res.js.books });
-      })
-      .catch(err => console.log("Error in GET"));
+    this.fetch_books_details();
   }
+
+  fetch_books_details = () => {
+    BooksAPI.getAll().then(books => {
+      this.setState({ Books: books });
+    });
+  };
+
+  update_books_details = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(() => {
+      this.fetch_books_details();
+    });
+  };
+
   render() {
     return (
-      <div className="App">
-        <h1>My Reads</h1>
-        <SearchBooksBar />
-        <Bookshelf />
+      <div className="app">
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <ListBook
+              books={this.state.Books}
+              onChange={this.update_books_details}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/search"
+          render={({ history }) => (
+            <BookSearch
+              onChange={this.update_books_details}
+              myBooks={this.state.Books}
+            />
+          )}
+        />
       </div>
     );
   }
 }
-
-export default BooksApp;
