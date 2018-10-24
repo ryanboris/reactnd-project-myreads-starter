@@ -3,7 +3,7 @@ import BookShelf from "./BookShelf";
 import { Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
 
-export default class ListBook extends Component {
+export default class BookList extends Component {
   constructor(props) {
     super(props);
   }
