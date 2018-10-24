@@ -2,7 +2,7 @@ import React from "react";
 import { api } from "./BooksAPI";
 import "./App.css";
 import SearchBooksBar from "./components/SearchBooks/SearchBooksBar";
-import Bookshelf from "./components/Bookshelf";
+import Bookshelf from "./components/BookShelf";
 import axios from "axios";
 
 class BooksApp extends React.Component {
@@ -16,7 +16,7 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     axios
-        .get(`${api}/books`)
+      .get(`${api}/books`)
       .then(res => {
         this.setState({ books: res.js.books });
       })
