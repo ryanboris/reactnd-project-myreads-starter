@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "ajv": "^6.5.4",
+    "netlify-cli": "^2.1.2",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
@@ -15,5 +16,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "homepage": "https://rborismyreads.netlify.com"
 }

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
 
 export default class BookList extends Component {
+  //eslint-disable-next-line
   constructor(props) {
     super(props);
   }
