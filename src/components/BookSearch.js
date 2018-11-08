@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Book from "./Book";
-import { PropTypes } from "prop-types";
-import * as BooksAPI from "../BooksAPI";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Book from './Book';
+import { PropTypes } from 'prop-types';
+import * as BooksAPI from '../BooksAPI';
 
 export default class BookSearch extends Component {
   constructor(props) {
     super(props);
     this.state = {
       Books: [],
-      query: ""
+      query: ''
     };
   }
 
@@ -24,7 +24,7 @@ export default class BookSearch extends Component {
   changeBookShelf = books => {
     let all_Books = this.props.myBooks;
     for (let book of books) {
-      book.shelf = "none";
+      book.shelf = 'none';
     }
 
     for (let book of books) {
@@ -39,17 +39,22 @@ export default class BookSearch extends Component {
 
   search_books = val => {
     if (val.length !== 0) {
-      BooksAPI.search(val, 10).then(books => {
-        if (books.length > 0) {
-          books = books.filter(book => book.imageLinks);
-          books = this.changeBookShelf(books);
-          this.setState(() => {
-            return { Books: books };
-          });
-        }
-      });
+      BooksAPI.search(val, 10)
+        .then(books => {
+          if (books.length > 0) {
+            books = books.filter(book => book.imageLinks);
+            books = this.changeBookShelf(books);
+            this.setState(() => {
+              return { Books: books };
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err, 'error searching for books');
+          this.setState({ Books: [], query: '' });
+        });
     } else {
-      this.setState({ Books: [], query: "" });
+      this.setState({ Books: [], query: '' });
     }
   };
 
