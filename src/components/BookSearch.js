@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Book from './Book';
 import { PropTypes } from 'prop-types';
 import * as BooksAPI from '../BooksAPI';
 
-export default class BookSearch extends Component {
+export default class BookSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,9 +44,7 @@ export default class BookSearch extends Component {
           if (books.length > 0) {
             books = books.filter(book => book.imageLinks);
             books = this.changeBookShelf(books);
-            this.setState(() => {
-              return { Books: books };
-            });
+            this.setState({ Books: books });
           }
         })
         .catch(err => {

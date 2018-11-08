@@ -1,18 +1,21 @@
-import React, { Component } from "react";
-import { PropTypes } from "prop-types";
+import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
+
 
 export default class Book extends Component {
   //eslint-disable-next-line
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   changeBookShelf = e => {
-    this.props.onUpdate(e.target.value);
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   };
 
   render() {
-    const book = this.props.book;
     return (
       <li>
         <div className="book">
@@ -22,23 +25,31 @@ export default class Book extends Component {
               style={{
                 width: 128,
                 height: 193,
-                backgroundImage: `url("${book.imageLinks.thumbnail}")`
+                backgroundImage: `url("${this.props.book.imageLinks.thumbnail}")`
               }}
             />
             <div className="book-shelf-changer">
-              <select onChange={this.changeBookShelf} value={book.shelf}>
-                <option value="moveTo" disabled>
+              <select onChange={e => this.props.onUpdate(e.target.value)}>
+                <option name="moveTo" value="moveTo" disabled>
                   Move to...
                 </option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
-                <option value="none">None</option>
+                <option name="currentlyReading" value="currentlyReading">
+                  Currently Reading
+                </option>
+                <option name="wantToRead" value="wantToRead">
+                  Want to Read
+                </option>
+                <option name="read" value="read">
+                  Read
+                </option>
+                <option name="none" value="none">
+                  None
+                </option>
               </select>
             </div>
           </div>
-          <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors}</div>
+          <div className="book-title">{this.props.book.title}</div>
+          <div className="book-authors">{this.props.book.authors}</div>
         </div>
       </li>
     );
