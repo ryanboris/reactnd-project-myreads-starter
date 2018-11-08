@@ -15,9 +15,9 @@ export default class BooksApp extends Component {
   }
 
   fetch_books_details = () => {
-    BooksAPI.getAll().then(books => {
-      this.setState({ Books: books });
-    });
+    this.setState({
+      Books: books, 
+    })
   };
 
   update_books_details = (book, shelf) => {

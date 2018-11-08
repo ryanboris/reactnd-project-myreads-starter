@@ -27,7 +27,7 @@ export default class Book extends Component {
             />
             <div className="book-shelf-changer">
               <select onChange={this.changeBookShelf} value={book.shelf}>
-                <option value="none" disabled>
+                <option value="moveTo" disabled>
                   Move to...
                 </option>
                 <option value="currentlyReading">Currently Reading</option>
